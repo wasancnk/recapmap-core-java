@@ -1,0 +1,14 @@
+# Local Configuration Template
+# Copy this file to application-local.properties and fill in your actual values
+# application-local.properties is git-ignored for security
+
+# MongoDB Atlas connection string
+# Get your connection string from MongoDB Atlas dashboard
+spring.data.mongodb.uri=mongodb+srv://YOUR_USERNAME:YOUR_PASSWORD@YOUR_CLUSTER.mongodb.net/YOUR_DATABASE?retryWrites=true&w=majority
+
+# OpenAI API Key for AI vision features
+# Get your API key from https://platform.openai.com/api-keys
+openai.api.key=sk-your-openai-api-key-here
+
+# Optional: Override any other sensitive configurations here
+# server.port=8080

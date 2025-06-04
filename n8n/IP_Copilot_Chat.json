@@ -1,0 +1,179 @@
+{
+  "name": "IP Copilot Chat",
+  "nodes": [
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.body.message }}",
+        "hasOutputParser": true,
+        "options": {
+          "systemMessage": "=You are a professional IP consult assistant. Maintain short-term context across messages. Your role is to summarize, clarify user needs, and answer accurately about IP best practices, strategies, use cases, and valuations.\n\nIf the input is factual, strategic, or instructional:\n1. Extract the most relevant keywords (5–20 depending on specificity). If in Thai or other language, translate them into English then use the translated keywords in \"$in\" MongoDB queries.\n2. Use the tool `MongoDB-GenKnowledge` with these keywords.\n3. Wait for results. Select only highly relevant documents based on the user’s intent.\n4. Respond using only the \"markdown\" fields of those documents in same lanugage from user to answer to user professionally.\n\n✅ After your answer, include a short reference list of the `documentId` and `pageIndex` values from the documents used, like this:\n**References**: [ip101-brand-protection (page 1), ip101-intro-to-ip (page 5)]\n\n🚫 Do not invent details, enrich responses, or infer steps not found in the retrieved content.\n\nOnly skip the tool if:\n- The query is unrelated to IP, is non-informational, or system-related.\n\nIf no documents are found:\n- Do not answer using memory or general knowledge.\n- Instead, inform the user that there’s no matching content and suggest rephrasing or a related topic.\n\nOnly reply if relevant documents are found."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.9,
+      "position": [
+        220,
+        0
+      ],
+      "id": "a295b40d-1533-4a4d-86b5-8c79de709cfe",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4o",
+          "mode": "list",
+          "cachedResultName": "gpt-4o"
+        },
+        "options": {
+          "temperature": 0.2
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        220,
+        220
+      ],
+      "id": "da21b7cf-a2c0-4d6b-bb14-f832d510c9c9",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "zXuwFr5nLKxQhHUk",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "descriptionType": "manual",
+        "toolDescription": "=Only return the JSON object directly — not nested inside any keys or fields. \n\nCorrect format:\n{\n  \"keywords\": { \"$in\": [\"keyword1\", \"keyword2\", \"keyword3\"] }\n}\n\nDo NOT wrap it like:\n{\n  \"Query__JSON_Format_\": { ... }\n}",
+        "collection": "knowledge",
+        "options": {},
+        "query": "={{ ($fromAI('Query__JSON_Format_', ``, 'json')).toJsonString() }}"
+      },
+      "type": "n8n-nodes-base.mongoDbTool",
+      "typeVersion": 1.1,
+      "position": [
+        860,
+        180
+      ],
+      "id": "dca2cd9b-c19f-4df7-a579-faaa57b3be6f",
+      "name": "MongoDB-GenKnowledge",
+      "credentials": {
+        "mongoDb": {
+          "id": "hVbgHG67CW8VFdLD",
+          "name": "MongoDB account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "descriptionType": "manual",
+        "toolDescription": "=Only return the JSON object directly — not nested inside any keys or fields. \n\nCorrect format:\n{\n  \"keywords\": { \"$in\": [\"keyword1\", \"keyword2\", \"keyword3\"] }\n}\n\nDo NOT wrap it like:\n{\n  \"Query__JSON_Format_\": { ... }\n}",
+        "collection": "=extracted_documents",
+        "options": {
+          "limit": 20
+        },
+        "query": "={{ ($fromAI('Query__JSON_Format_', ``, 'json')).toJsonString() }}"
+      },
+      "type": "n8n-nodes-base.mongoDbTool",
+      "typeVersion": 1.1,
+      "position": [
+        360,
+        220
+      ],
+      "id": "18e98a21-ef96-485d-a0ed-5166d4d40699",
+      "name": "MongoDB-ExtractedData",
+      "credentials": {
+        "mongoDb": {
+          "id": "hVbgHG67CW8VFdLD",
+          "name": "MongoDB account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "e80476e1-dedc-4c8f-8da7-abd7d0a4a1e3",
+        "authentication": "basicAuth",
+        "responseMode": "lastNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -20,
+        0
+      ],
+      "id": "9ab05fb5-ac5b-47e0-b529-31c14ee3e676",
+      "name": "Webhook",
+      "webhookId": "e80476e1-dedc-4c8f-8da7-abd7d0a4a1e3",
+      "credentials": {
+        "httpBasicAuth": {
+          "id": "FBgCQh8NFdKLsn8j",
+          "name": "ipcopilot_n8n_user_test"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        []
+      ]
+    },
+    "MongoDB-GenKnowledge": {
+      "ai_tool": [
+        []
+      ]
+    },
+    "MongoDB-ExtractedData": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "8c9406f1-216e-489a-a668-ca811d590756",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "dc3a906b8b023fe285e4b5c7db99f8e60ea28eb0c9449205b5d079c57e380257"
+  },
+  "id": "itcqGZdLvFMV190P",
+  "tags": []
+}

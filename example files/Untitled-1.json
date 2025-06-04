@@ -1,0 +1,36 @@
+{
+  "id": "chatcmpl-BYzyn2jpUKbNG8oC107Rk0MxAiJap",
+  "object": "chat.completion",
+  "created": 1747681101,
+  "model": "gpt-4o-2024-08-06",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "```json\n[\n    \"ZEWIN? 7-Week Innovation Program\",\n    \"Design, Protect & Commercialize Your IP for the Right Markets\",\n    \"A hands-on, step-by-step journey for innovators to align strategy with IP/IA, identify high-potential markets, design monetizable business models, and maximize their innovation potential — now with IP Copilot GPT for ongoing support.\",\n    \"WEEK 1: ALIGN\",\n    \"Theme: Align Business Purpose with Innovation and IP\",\n    \"Key Topics:\",\n    \"• What is IP? What is IA?\",\n    \"• Business problem–solution fit\",\n    \"• The role of IP/IA in business and competitive strategy\",\n    \"• How to communicate the value of your innovation\",\n    \"Assignment:\",\n    \"IP/IA Mission Canvas\",\n    \"Describe your core innovation and how it addresses a meaningful market problem.\",\n    \"WEEK 2: CATEGORIZE\",\n    \"Theme: Identify and Prioritize Your Strategic Intangible Assets\",\n    \"Key Topics:\",\n    \"• Unified tool: IA Discovery & Categorization Canvas\",\n    \"• IVSC’s 6 IA categories\",\n    \"• Tangible and non-owned complementary assets\",\n    \"• Filtering combinations with VRIO framework\",\n    \"• Final output: Uniquely strategic capabilities\",\n    \"Assignment:\",\n    \"Strategic IA Mapping\",\n    \"Complete the IA Discovery & Categorization Canvas and highlight 3–5 strategic capabilities to guide your market opportunity analysis.\",\n    \"WEEK 3: NAVIGATE\",\n    \"Theme: Discover Your Best Market Opportunities\",\n    \"Key Topics:\",\n    \"• MO Navigator methodology\",\n    \"• Worksheet 1: MO Set (De-linking & Re-linking strategic capabilities)\",\n    \"• Customer segments, unmet needs, and market applications\",\n    \"• Examples from past student cases\",\n    \"Assignment:\",\n    \"Worksheet 1 – MO Set\",\n    \"Identify 3–5 market opportunities based on your strategic capabilities.\",\n    \"WEEK 4: DESIGN\",\n    \"Theme: Evaluate Opportunities and Focus with Agility\",\n    \"Key Topics:\",\n    \"• Worksheet 2: Attractiveness Map (6 evaluation criteria)\",\n    \"• Worksheet 3: Agile Focus Dartboard\",\n    \"   o Primary MO\",\n    \"   o Secondary (Backup & Growth) options\",\n    \"• Balancing focus with flexibility\",\n    \"Assignments (x2):\",\n    \"Worksheet 2 – Attractiveness Map\",\n    \"Worksheet 3 – Agile Focus Dartboard\",\n    \"Select your Primary MO and define an Agile Focus Strategy with backup options.\",\n    \"WEEK 5: COMMERCIALIZE\",\n    \"Theme: Build a Business Model Around Your IP/IA\",\n    \"Key Topics:\"\n]\n```",
+        "refusal": null,
+        "annotations": []
+      },
+      "logprobs": null,
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 1565,
+    "completion_tokens": 566,
+    "total_tokens": 2131,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+    }
+  },
+  "service_tier": "default",
+  "system_fingerprint": "fp_9bddfca6e2"
+}
