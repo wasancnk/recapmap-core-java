@@ -1,6 +1,7 @@
 package com.recapmap.core.config;
 
 import com.recapmap.core.CoreApplication;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -14,6 +15,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.util.StringUtils;
 
 import java.util.UUID;
 
@@ -21,22 +23,59 @@ import java.util.UUID;
 @Configuration
 public class SecurityConfig {
 
-    // Generate UUID passwords for admin and user
-    public static final String ADMIN_PASSWORD = UUID.randomUUID().toString();
-    public static final String USER_PASSWORD = UUID.randomUUID().toString();
+    @Value("${admin.password:}")
+    private String configuredAdminPassword;
+    
+    @Value("${user.password:}")
+    private String configuredUserPassword;
+
+    // Generate UUID passwords for admin and user (fallback if not configured)
+    public static final String GENERATED_ADMIN_PASSWORD = UUID.randomUUID().toString();
+    public static final String GENERATED_USER_PASSWORD = UUID.randomUUID().toString();
 
     @Bean
     public UserDetailsService userDetailsService(PasswordEncoder passwordEncoder) {
+        // Use configured password if available, otherwise use generated UUID
+        String adminPassword = StringUtils.hasText(configuredAdminPassword) ? 
+            configuredAdminPassword : GENERATED_ADMIN_PASSWORD;
+        String userPassword = StringUtils.hasText(configuredUserPassword) ? 
+            configuredUserPassword : GENERATED_USER_PASSWORD;
+            
+        // Log the passwords for development purposes
+        if (StringUtils.hasText(configuredAdminPassword)) {
+            System.out.println("=== ADMIN LOGIN CREDENTIALS ===");
+            System.out.println("Username: admin");
+            System.out.println("Password: " + adminPassword + " (configured)");
+            System.out.println("================================");
+        } else {
+            System.out.println("=== ADMIN LOGIN CREDENTIALS ===");
+            System.out.println("Username: admin");
+            System.out.println("Password: " + adminPassword + " (auto-generated)");
+            System.out.println("================================");
+        }
+        
+        if (StringUtils.hasText(configuredUserPassword)) {
+            System.out.println("=== USER LOGIN CREDENTIALS ===");
+            System.out.println("Username: user");
+            System.out.println("Password: " + userPassword + " (configured)");
+            System.out.println("===============================");
+        } else {
+            System.out.println("=== USER LOGIN CREDENTIALS ===");
+            System.out.println("Username: user");
+            System.out.println("Password: " + userPassword + " (auto-generated)");
+            System.out.println("===============================");
+        }
+
         UserDetails admin = User.withUsername("admin")
-                .password(passwordEncoder.encode(ADMIN_PASSWORD))
+                .password(passwordEncoder.encode(adminPassword))
                 .roles("ADMIN")
                 .build();
         UserDetails user = User.withUsername("user")
-                .password(passwordEncoder.encode(USER_PASSWORD))
+                .password(passwordEncoder.encode(userPassword))
                 .roles("USER")
                 .build();
         return new InMemoryUserDetailsManager(admin, user);
-    }    @Bean
+    }@Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }

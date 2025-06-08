@@ -10,7 +10,6 @@ import jakarta.servlet.MultipartConfigElement;
 import org.springframework.boot.web.servlet.MultipartConfigFactory;
 import org.springframework.util.unit.DataSize;
 
-import com.recapmap.core.config.SecurityConfig;
 import com.recapmap.core.service.PdfService;
 
 @SpringBootApplication
@@ -31,25 +30,21 @@ public class CoreApplication {
 			logger.error("=== Failed to start RecapMap Core Application ===", e);
 			throw e;
 		}
-	}
-	@Bean
-	public CommandLineRunner printPasswords() {
+	}	@Bean
+	public CommandLineRunner printStartupMessage() {
 		return args -> {
 			logger.info("==============================");
-			logger.info("APPLICATION CREDENTIALS:");
-			logger.info("Admin login: admin");
-			logger.info("Admin password: {}", SecurityConfig.ADMIN_PASSWORD);
-			logger.info("User login: user");
-			logger.info("User password: {}", SecurityConfig.USER_PASSWORD);
+			logger.info("APPLICATION STARTED SUCCESSFULLY");
 			logger.info("Application URL: http://localhost:8080");
+			logger.info("Admin Panel: http://localhost:8080/admin");
+			logger.info("Login credentials are configured in application.properties");
 			logger.info("==============================");
 			
 			System.out.println("\n==============================");
-			System.out.println("Admin login: admin");
-			System.out.println("Admin password: " + SecurityConfig.ADMIN_PASSWORD);
-			System.out.println("User login: user");
-			System.out.println("User password: " + SecurityConfig.USER_PASSWORD);
+			System.out.println("RecapMap Core Application Started");
 			System.out.println("Application URL: http://localhost:8080");
+			System.out.println("Admin Panel: http://localhost:8080/admin");
+			System.out.println("Check console output for login credentials");
 			System.out.println("==============================\n");
 		};
 	}@Bean
