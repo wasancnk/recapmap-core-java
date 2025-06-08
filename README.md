@@ -241,13 +241,44 @@ Comprehensive logging configuration with:
 - Spring Boot logs: Console output
 - Error logs: `error.log` (if configured)
 
+## 📚 Knowledge Base Documentation Standards
+
+**⚠️ IMPORTANT FOR ALL DEVELOPERS AND AI ASSISTANTS:**
+
+### Knowledge Base Location
+All knowledge base documents **MUST** be created in the `kb/` folder only:
+- **Organized Documentation**: Save finalized, well-structured documents directly in `kb/`
+- **Work-in-Progress**: Save draft or reference materials in `kb/unorganized-kb/`
+- **Never create KB documents** in the root directory or other locations
+
+### KB Document Guidelines
+- Use clear, descriptive filenames with kebab-case (e.g., `api-integration-guide.md`)
+- Include proper markdown headers and structure
+- Add creation date and project context at the top
+- Reference related documents within the KB system
+- Update the main project documentation when adding significant KB content
+
+### For AI Assistants (GitHub Copilot, etc.)
+When creating any documentation, technical specs, architecture decisions, or knowledge base content:
+```
+✅ CORRECT: Save to d:\workspace_recapmap\recapmap-core\recapmap-core-java\kb\your-document.md
+❌ INCORRECT: Save to root directory or any other location
+```
+
+**This ensures:**
+- Centralized knowledge management
+- Easy discovery of project documentation
+- Consistent documentation structure
+- Better collaboration between team members and AI assistants
+
 ## Contributing
 
 1. Follow the existing code structure and naming conventions
 2. Use the `com.recapmap.core` package structure
 3. Add unit tests for new functionality
 4. Update this README when adding new features
-5. Use the provided Maven batch scripts for consistency:
+5. **Create all KB documents in the `kb/` folder only** (see Knowledge Base Documentation Standards above)
+6. Use the provided Maven batch scripts for consistency:
    - `mvn-compile-and-run-for-POWERSTATION.bat` - One-step compile and run (recommended)
    - `mvn-compile-for-POWERSTATION.bat` - Compile only
    - `mvn-springboot-run.bat` - Run only (after compilation)
