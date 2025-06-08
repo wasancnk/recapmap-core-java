@@ -266,59 +266,209 @@ code {
   background: #0056b3;
 }
 
-/* Dashboard Content Styles */
-.dashboard-content {
-  max-width: 1200px;
-}
-
-.stats-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1.5rem;
+/* API Documentation Tab Styles */
+.api-tabs {
+  display: flex;
+  gap: 0.5rem;
   margin-bottom: 2rem;
+  border-bottom: 2px solid #e1e5e9;
 }
 
-.stat-card {
-  background: white;
-  padding: 1.5rem;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.stat-card h3 {
-  margin: 0 0 0.5rem 0;
-  color: #2c3e50;
-  font-size: 1.1rem;
-}
-
-.stat-card p {
-  margin: 0;
-  color: #7f8c8d;
-  font-size: 0.95rem;
-}
-
-.quick-actions {
-  background: white;
-  padding: 1.5rem;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.quick-actions h3 {
-  margin: 0 0 1rem 0;
-  color: #2c3e50;
-}
-
-.action-button {
-  display: inline-block;
+.tab-button {
   padding: 0.75rem 1.5rem;
-  background: #3498db;
-  color: white;
-  text-decoration: none;
-  border-radius: 5px;
-  transition: background-color 0.3s;
+  background: transparent;
+  border: none;
+  border-bottom: 3px solid transparent;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #666;
+  transition: all 0.3s ease;
 }
 
-.action-button:hover {
-  background: #2980b9;
+.tab-button:hover {
+  background: #f8f9fa;
+  color: #333;
+}
+
+.tab-button.active {
+  color: #667eea;
+  border-bottom-color: #667eea;
+  background: #f8f9fa;
+}
+
+/* Knowledge Base Documentation Styles */
+.kb-documentation {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.markdown-content {
+  padding: 2rem;
+  line-height: 1.6;
+  color: #333;
+}
+
+.markdown-content h1 {
+  color: #2c3e50;
+  border-bottom: 2px solid #3498db;
+  padding-bottom: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.markdown-content h2 {
+  color: #34495e;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid #ecf0f1;
+  padding-bottom: 0.5rem;
+}
+
+.markdown-content h3 {
+  color: #667eea;
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.markdown-content h4 {
+  color: #555;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.markdown-content p {
+  margin-bottom: 1rem;
+}
+
+.markdown-content ul, .markdown-content ol {
+  margin-bottom: 1rem;
+  padding-left: 1.5rem;
+}
+
+.markdown-content li {
+  margin-bottom: 0.25rem;
+}
+
+.markdown-content code {
+  background: #f8f9fa;
+  padding: 0.2rem 0.4rem;
+  border-radius: 3px;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  font-size: 0.9em;
+  color: #e74c3c;
+}
+
+.markdown-content pre {
+  background: #f8f9fa;
+  border: 1px solid #e1e5e9;
+  border-radius: 5px;
+  padding: 1rem;
+  overflow-x: auto;
+  margin: 1rem 0;
+}
+
+.markdown-content pre code {
+  background: transparent;
+  padding: 0;
+  color: #333;
+  font-size: 0.9em;
+}
+
+.markdown-content blockquote {
+  border-left: 4px solid #3498db;
+  margin: 1rem 0;
+  padding: 0.5rem 1rem;
+  background: #f8f9fa;
+  color: #555;
+}
+
+.markdown-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+}
+
+.markdown-content th, .markdown-content td {
+  border: 1px solid #ddd;
+  padding: 0.75rem;
+  text-align: left;
+}
+
+.markdown-content th {
+  background: #f8f9fa;
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.markdown-content tr:nth-child(even) {
+  background: #f9f9f9;
+}
+
+.markdown-content a {
+  color: #3498db;
+  text-decoration: none;
+}
+
+.markdown-content a:hover {
+  text-decoration: underline;
+}
+
+/* Enhanced code syntax highlighting */
+.markdown-content .language-json,
+.markdown-content .language-bash,
+.markdown-content .language-curl {
+  background: #2c3e50;
+  color: #ecf0f1;
+}
+
+.markdown-content .language-json code,
+.markdown-content .language-bash code,
+.markdown-content .language-curl code {
+  color: #ecf0f1;
+}
+
+/* Status badge styles in markdown */
+.markdown-content .status-badge {
+  display: inline-block;
+  padding: 0.2rem 0.5rem;
+  border-radius: 12px;
+  font-size: 0.8em;
+  font-weight: 500;
+}
+
+.markdown-content .status-success {
+  background: #d4edda;
+  color: #155724;
+}
+
+.markdown-content .status-error {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+.markdown-content .status-warning {
+  background: #fff3cd;
+  color: #856404;
+}
+
+/* Responsive design for markdown content */
+@media (max-width: 768px) {
+  .markdown-content {
+    padding: 1rem;
+  }
+  
+  .markdown-content pre {
+    font-size: 0.8em;
+  }
+  
+  .api-tabs {
+    flex-direction: column;
+  }
+  
+  .tab-button {
+    width: 100%;
+    text-align: left;
+  }
 }

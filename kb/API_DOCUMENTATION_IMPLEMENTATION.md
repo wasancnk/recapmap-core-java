@@ -46,12 +46,12 @@
 
 ### 🔑 Default Credentials
 
-The application generates random passwords on startup. Check the console output for:
+The application uses fixed credentials:
 ```
 Admin login: admin
-Admin password: [generated-uuid]
+Admin password: admin123
 User login: user  
-User password: [generated-uuid]
+User password: user123
 ```
 
 ### 📁 Project Structure

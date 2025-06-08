@@ -37,9 +37,7 @@ public class ApiDocumentationController {
             return ResponseEntity.status(401).body("Authentication required");
         }
 
-        List<Map<String, Object>> endpoints = new ArrayList<>();
-
-        // Get all mapped endpoints
+        List<Map<String, Object>> endpoints = new ArrayList<>();        // Get all mapped endpoints
         Map<RequestMappingInfo, HandlerMethod> handlerMethods = 
             requestMappingHandlerMapping.getHandlerMethods();
 
@@ -50,7 +48,9 @@ public class ApiDocumentationController {
             // Only include API endpoints
             if (mappingInfo.getPatternsCondition() != null && 
                 mappingInfo.getPatternsCondition().getPatterns().stream()
-                    .anyMatch(pattern -> pattern.startsWith("/api/"))) {                // Get HTTP methods
+                    .anyMatch(pattern -> pattern.startsWith("/api/"))) {
+                
+                // Get HTTP methods
                 Set<String> methods = mappingInfo.getMethodsCondition().getMethods().stream()
                     .map(Enum::name)
                     .collect(Collectors.toSet());
