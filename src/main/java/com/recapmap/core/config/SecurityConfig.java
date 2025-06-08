@@ -3,6 +3,8 @@ package com.recapmap.core.config;
 import com.recapmap.core.CoreApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.User;
@@ -34,23 +36,41 @@ public class SecurityConfig {
                 .roles("USER")
                 .build();
         return new InMemoryUserDetailsManager(admin, user);
-    }
-
-    @Bean
+    }    @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
     @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
+        return config.getAuthenticationManager();
+    }    @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         if (CoreApplication.BYPASS_LOGIN) {
             http.authorizeHttpRequests(auth -> auth.anyRequest().permitAll())
                 .csrf(csrf -> csrf.disable());
             return http.build();
         }
-        http
+        
+        http            
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/login", "/css/**", "/js/**", "/static/**", "/jquery-3.7.1.min.js").permitAll()
+                // Public static resources
+                .requestMatchers("/css/**", "/js/**", "/static/**", "/jquery-3.7.1.min.js").permitAll()
+                
+                // Admin frontend - publicly accessible (React handles auth)
+                .requestMatchers("/admin", "/admin/**").permitAll()
+                
+                // API authentication endpoints
+                .requestMatchers("/api/auth/login").permitAll()
+                .requestMatchers("/api/auth/logout", "/api/auth/status").authenticated()
+                
+                // Protected API endpoints - require ADMIN role
+                .requestMatchers("/api/docs/**").hasRole("ADMIN")
+                
+                // Spring Security default login (for non-admin access)
+                .requestMatchers("/login").permitAll()
+                
+                // All other requests require authentication via Spring Security
                 .anyRequest().authenticated()
             )
             .formLogin(form -> form
@@ -63,7 +83,13 @@ public class SecurityConfig {
                 .logoutSuccessUrl("/login?logout")
                 .permitAll()
             )
+            .sessionManagement(session -> session
+                .sessionCreationPolicy(org.springframework.security.config.http.SessionCreationPolicy.IF_REQUIRED)
+                .maximumSessions(1)
+                .maxSessionsPreventsLogin(false)
+            )
             .csrf(csrf -> csrf.disable());
+            
         return http.build();
     }
 }

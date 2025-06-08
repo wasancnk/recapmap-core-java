@@ -35,3 +35,4 @@ logs/
 
 ### Local Configuration Files ###
 src/main/resources/application-local.properties
+frontend/node_modules/

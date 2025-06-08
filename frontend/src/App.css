@@ -1,0 +1,324 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #f5f5f5;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.App {
+  min-height: 100vh;
+}
+
+/* Loading Component Styles */
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  font-size: 18px;
+  color: #666;
+  background-color: #f5f5f5;
+}
+
+/* Login Component Styles */
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.login-card {
+  background: white;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+}
+
+.login-card h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #333;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #555;
+  font-weight: 500;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #667eea;
+}
+
+.login-button {
+  width: 100%;
+  padding: 0.75rem;
+  background: #667eea;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.login-button:hover {
+  background: #5a6fd8;
+}
+
+.login-button:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+.error-message {
+  color: #e74c3c;
+  text-align: center;
+  margin-top: 1rem;
+}
+
+/* Dashboard Layout */
+.dashboard {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: 250px;
+  background: #2c3e50;
+  color: white;
+  padding: 1rem 0;
+}
+
+.sidebar h3 {
+  padding: 0 1rem;
+  margin-bottom: 1rem;
+  color: #ecf0f1;
+}
+
+.sidebar nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar nav li {
+  margin-bottom: 0.5rem;
+}
+
+.sidebar nav a {
+  display: block;
+  padding: 0.75rem 1rem;
+  color: #bdc3c7;
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
+
+.sidebar nav a:hover,
+.sidebar nav a.active {
+  background: #34495e;
+  color: #ecf0f1;
+}
+
+.main-content {
+  flex: 1;
+  padding: 2rem;
+}
+
+.content-header {
+  margin-bottom: 2rem;
+}
+
+.content-header h1 {
+  margin: 0;
+  color: #2c3e50;
+}
+
+.logout-button {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  padding: 0.5rem 1rem;
+  background: #e74c3c;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.logout-button:hover {
+  background: #c0392b;
+}
+
+/* API Documentation Styles */
+.api-docs {
+  max-width: 1200px;
+}
+
+.endpoint-section {
+  background: white;
+  margin-bottom: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.endpoint-header {
+  background: #f8f9fa;
+  padding: 1rem;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.endpoint-method {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-weight: bold;
+  font-size: 0.875rem;
+  margin-right: 0.75rem;
+}
+
+.method-get { background: #d4edda; color: #155724; }
+.method-post { background: #cce5ff; color: #004085; }
+.method-put { background: #fff3cd; color: #856404; }
+.method-delete { background: #f8d7da; color: #721c24; }
+
+.endpoint-path {
+  font-family: 'Courier New', monospace;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.endpoint-content {
+  padding: 1.5rem;
+}
+
+.endpoint-description {
+  margin-bottom: 1.5rem;
+  color: #6c757d;
+}
+
+.code-block {
+  background: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 4px;
+  padding: 1rem;
+  margin: 1rem 0;
+  font-family: 'Courier New', monospace;
+  font-size: 0.875rem;
+  overflow-x: auto;
+}
+
+.response-example {
+  background: #f8f9fa;
+  border-left: 4px solid #007bff;
+  padding: 1rem;
+  margin: 1rem 0;
+}
+
+.live-test-section {
+  background: #e7f3ff;
+  border: 1px solid #b8daff;
+  border-radius: 4px;
+  padding: 1rem;
+  margin-top: 1rem;
+}
+
+.test-button {
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-right: 0.5rem;
+}
+
+.test-button:hover {
+  background: #0056b3;
+}
+
+/* Dashboard Content Styles */
+.dashboard-content {
+  max-width: 1200px;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.stat-card {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.stat-card h3 {
+  margin: 0 0 0.5rem 0;
+  color: #2c3e50;
+  font-size: 1.1rem;
+}
+
+.stat-card p {
+  margin: 0;
+  color: #7f8c8d;
+  font-size: 0.95rem;
+}
+
+.quick-actions {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.quick-actions h3 {
+  margin: 0 0 1rem 0;
+  color: #2c3e50;
+}
+
+.action-button {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  background: #3498db;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.action-button:hover {
+  background: #2980b9;
+}
